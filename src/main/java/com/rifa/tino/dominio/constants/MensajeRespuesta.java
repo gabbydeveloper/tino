@@ -9,6 +9,7 @@ public enum MensajeRespuesta {
   EXITO_REGISTRO_ACTUALIZADO("Registro correctamente actualizado.", HttpStatus.OK),
   EXITO_REGISTRO_ELIMINADO("Registro eliminado con éxito.", HttpStatus.OK),
   EXITO_OPERACION("", HttpStatus.OK),
+  EXITO_REGISTRO_ENCONTRADO("Donante con este correo ya existe", HttpStatus.OK),
 
   //ERRORES:
   ERROR_REGISTRO_NO_ENCONTRADO("No se encontró el registro con el ID proporcionado.", HttpStatus.NOT_FOUND),

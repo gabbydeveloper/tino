@@ -26,18 +26,22 @@ public class DonanteServiceImpl implements DonanteService {
 
   @Override
   public MessageResponseDTO crearDonante(DonanteDTO donanteDTO) {
-    // Validar que el email no esté duplicado (si se envía)
-    if (donanteDTO.getEmail() != null && donanteRepository.existsByEmail(donanteDTO.getEmail())) {
-      throw new BusinessException(MensajeRespuesta.ERROR_REGISTRO_YA_EXISTE);
+    if (donanteDTO.getEmail() != null) {
+      Optional<Donante> existingDonante = donanteRepository.findByEmail(donanteDTO.getEmail());
+      if (existingDonante.isPresent()) {
+        Donante donante = existingDonante.get();
+        return MessageResponseDTO.builder()
+            .status(MensajeRespuesta.EXITO_REGISTRO_ENCONTRADO.getStatus())
+            .message(MensajeRespuesta.EXITO_REGISTRO_ENCONTRADO.getMensaje())
+            .idSecuencial(donante.getIdDonante())
+            .build();
+      }
     }
-
-    // Asignar fecha de creación si no viene en el DTO
+    // If email is null or not found, create new donor
     if (donanteDTO.getFechaCreaDonante() == null) {
       donanteDTO.setFechaCreaDonante(LocalDateTime.now());
     }
-
     Donante nuevoDonante = donanteRepository.save(donanteDAO.toEntity(donanteDTO));
-
     return MessageResponseDTO.builder()
         .status(MensajeRespuesta.EXITO_REGISTRO_CREADO.getStatus())
         .message(MensajeRespuesta.EXITO_REGISTRO_CREADO.getMensaje())
@@ -112,7 +116,7 @@ public class DonanteServiceImpl implements DonanteService {
     return MessageResponseDTO.builder()
         .status(MensajeRespuesta.EXITO_REGISTRO_ACTUALIZADO.getStatus())
         .message(MensajeRespuesta.EXITO_REGISTRO_ACTUALIZADO.getMensaje())
-        .idNoSecuencial(String.valueOf(idDonante))
+        .idSecuencial(idDonante)
         .build();
   }
 
@@ -127,7 +131,7 @@ public class DonanteServiceImpl implements DonanteService {
     return MessageResponseDTO.builder()
         .status(MensajeRespuesta.EXITO_REGISTRO_ELIMINADO.getStatus())
         .message(MensajeRespuesta.EXITO_REGISTRO_ELIMINADO.getMensaje())
-        .idNoSecuencial(String.valueOf(idDonante))
+        .idSecuencial(idDonante)
         .build();
   }
 }
