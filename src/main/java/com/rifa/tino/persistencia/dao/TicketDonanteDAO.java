@@ -20,7 +20,7 @@ public class TicketDonanteDAO {
   @Autowired
   private DonanteRepository donanteRepository;
 
-  // DTO → Entity (con validación de que existan las entidades relacionadas)
+  // GRABA: DTO → Entity (con validación de que existan las entidades relacionadas)
   public TicketDonante toEntity(TicketDonanteDTO dto) {
     if (dto == null) return null;
 
@@ -40,7 +40,7 @@ public class TicketDonanteDAO {
     return entity;
   }
 
-  // Entity → DTO (extrae solo los IDs de las relaciones)
+  // MUESTRA: Entity → DTO (extrae solo los IDs de las relaciones)
   public TicketDonanteDTO toDTO(TicketDonante entity) {
     if (entity == null) return null;
 
@@ -48,6 +48,11 @@ public class TicketDonanteDAO {
     dto.setIdTicketXDonante(entity.getIdTicketXDonante());
     dto.setIdTicket(entity.getTicket().getIdTicket());
     dto.setIdDonante(entity.getDonante().getIdDonante());
+
+    // Llenar los campos adicionales
+    dto.setNombreDonante(entity.getDonante().getNombreCompleto());
+    dto.setNroTicket(entity.getTicket().getNroTicket());
+    dto.setEstadoTicket(entity.getTicket().getEstadoTicket());
 
     return dto;
   }

@@ -11,6 +11,9 @@ public interface DonanteRepository extends JpaRepository<Donante, Long> {
   // Método para verificar si ya existe un email (opcional)
   boolean existsByEmail(String email);
 
-  // Nuevo método para buscar donante por email
+  // Método para buscar donante por email
   Optional<Donante> findByEmail(String email);
+
+  // Método para buscar donante por celular
+  Optional<Donante> findByCelular(String celular);
 }

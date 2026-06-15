@@ -95,7 +95,7 @@ public class TicketServiceImpl implements TicketService {
     return MessageResponseDTO.builder()
         .status(MensajeRespuesta.EXITO_REGISTRO_ACTUALIZADO.getStatus())
         .message(MensajeRespuesta.EXITO_REGISTRO_ACTUALIZADO.getMensaje())
-        .idNoSecuencial(String.valueOf(idTicket))
+        .idSecuencial(idTicket)
         .build();
   }
 
@@ -110,7 +110,7 @@ public class TicketServiceImpl implements TicketService {
     return MessageResponseDTO.builder()
         .status(MensajeRespuesta.EXITO_REGISTRO_ELIMINADO.getStatus())
         .message(MensajeRespuesta.EXITO_REGISTRO_ELIMINADO.getMensaje())
-        .idNoSecuencial(String.valueOf(idTicket))
+        .idSecuencial(idTicket)
         .build();
   }
 

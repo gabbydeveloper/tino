@@ -36,6 +36,16 @@ public class DonanteServiceImpl implements DonanteService {
             .idSecuencial(donante.getIdDonante())
             .build();
       }
+    } else if (donanteDTO.getCelular() != null) {
+      Optional<Donante> existingDonante = donanteRepository.findByCelular(donanteDTO.getCelular());
+      if (existingDonante.isPresent()) {
+        Donante donante = existingDonante.get();
+        return MessageResponseDTO.builder()
+            .status(MensajeRespuesta.EXITO_REGISTRO_ENCONTRADO.getStatus())
+            .message(MensajeRespuesta.EXITO_REGISTRO_ENCONTRADO.getMensaje())
+            .idSecuencial(donante.getIdDonante())
+            .build();
+      }
     }
     // If email is null or not found, create new donor
     if (donanteDTO.getFechaCreaDonante() == null) {
