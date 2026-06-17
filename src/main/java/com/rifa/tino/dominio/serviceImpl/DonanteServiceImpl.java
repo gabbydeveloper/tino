@@ -29,25 +29,16 @@ public class DonanteServiceImpl implements DonanteService {
     if (donanteDTO.getEmail() != null) {
       Optional<Donante> existingDonante = donanteRepository.findByEmail(donanteDTO.getEmail());
       if (existingDonante.isPresent()) {
-        Donante donante = existingDonante.get();
-        return MessageResponseDTO.builder()
-            .status(MensajeRespuesta.EXITO_REGISTRO_ENCONTRADO.getStatus())
-            .message(MensajeRespuesta.EXITO_REGISTRO_ENCONTRADO.getMensaje())
-            .idSecuencial(donante.getIdDonante())
-            .build();
-      }
-    } else if (donanteDTO.getCelular() != null) {
-      Optional<Donante> existingDonante = donanteRepository.findByCelular(donanteDTO.getCelular());
-      if (existingDonante.isPresent()) {
-        Donante donante = existingDonante.get();
-        return MessageResponseDTO.builder()
-            .status(MensajeRespuesta.EXITO_REGISTRO_ENCONTRADO.getStatus())
-            .message(MensajeRespuesta.EXITO_REGISTRO_ENCONTRADO.getMensaje())
-            .idSecuencial(donante.getIdDonante())
-            .build();
+        throw new BusinessException(MensajeRespuesta.ERROR_REGISTRO_YA_EXISTE);
       }
     }
-    // If email is null or not found, create new donor
+    if (donanteDTO.getCelular() != null) {
+      Optional<Donante> existingDonante = donanteRepository.findByCelular(donanteDTO.getCelular());
+      if (existingDonante.isPresent()) {
+        throw new BusinessException(MensajeRespuesta.ERROR_REGISTRO_YA_EXISTE);
+      }
+    }
+    // Si el correo y el celular no están repetidos se asigna fecha creación del donante y se crea el registro
     if (donanteDTO.getFechaCreaDonante() == null) {
       donanteDTO.setFechaCreaDonante(LocalDateTime.now());
     }
