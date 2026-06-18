@@ -29,13 +29,13 @@ public class DonanteServiceImpl implements DonanteService {
     if (donanteDTO.getEmail() != null) {
       Optional<Donante> existingDonante = donanteRepository.findByEmail(donanteDTO.getEmail());
       if (existingDonante.isPresent()) {
-        throw new BusinessException(MensajeRespuesta.ERROR_REGISTRO_YA_EXISTE);
+        throw new BusinessException(MensajeRespuesta.ERROR_EMAIL_YA_EXISTE);
       }
     }
     if (donanteDTO.getCelular() != null) {
       Optional<Donante> existingDonante = donanteRepository.findByCelular(donanteDTO.getCelular());
       if (existingDonante.isPresent()) {
-        throw new BusinessException(MensajeRespuesta.ERROR_REGISTRO_YA_EXISTE);
+        throw new BusinessException(MensajeRespuesta.ERROR_CELULAR_YA_EXISTE);
       }
     }
     // Si el correo y el celular no están repetidos se asigna fecha creación del donante y se crea el registro

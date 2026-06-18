@@ -14,7 +14,9 @@ public enum MensajeRespuesta {
   //ERRORES:
   ERROR_REGISTRO_NO_ENCONTRADO("No se encontró el registro con el ID proporcionado.", HttpStatus.NOT_FOUND),
   ERROR_NO_EXISTEN_REGISTROS("No existen registros.", HttpStatus.NOT_FOUND),
-  ERROR_REGISTRO_YA_EXISTE("ID del registro ya existe en la base de datos.", HttpStatus.CONFLICT),
+  ERROR_EMAIL_YA_EXISTE("Ya existe un donante con este correo.", HttpStatus.BAD_REQUEST),
+  ERROR_CELULAR_YA_EXISTE("Ya existe un donante con este celular.", HttpStatus.BAD_REQUEST),
+  ERROR_REGISTRO_YA_EXISTE("ID del registro ya existe en la base de datos.", HttpStatus.BAD_REQUEST),
   ERROR_INDIQUE_EL_CODIGO("Indique el código del registro para poder realizar el ingreso.", HttpStatus.BAD_REQUEST),
   ERROR_REGISTRO_MAESTRO_NO_ENCONTRADO("El código de la tabla maestro no se ha encontrado", HttpStatus.BAD_REQUEST),
   ERROR_EXISTEN_DEPENDENCIAS(
