@@ -14,7 +14,7 @@ public class DonanteController {
   @Autowired
   private DonanteService donanteService;
 
-  @PostMapping
+  @PostMapping("/donante")
   public ResponseEntity<MessageResponseDTO> crearDonante(@RequestBody DonanteDTO donanteDTO) {
     return ResponseEntity.ok(donanteService.crearDonante(donanteDTO));
   }
